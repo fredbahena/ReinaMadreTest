@@ -126,33 +126,22 @@ def guarda_empleado(request):
 ##----------------------------------------------------
 # 
 def registra_usuario(request):
-        data = {
-            "form":CustomUserForm
+        form = CustomUserForm()
+        contexto = {
+            'form':form
         }
+        
         if request.method == "POST":
-            formulario = CustomUserForm(request.POST)
-            if formulario.is_valid():
-                formulario.save()
+            form = CustomUserForm(request.POST)
+            if form.is_valid():
+                form.save()
 
-                username = formulario.cleaned_data("username")
-                password = formulario.cleaned_data("password1")
+                username = form.cleaned_data("username")
+                password = form.cleaned_data("password1")
                 user = authenticate(username, password)
                 login(request, user)
                 return redirect(to=home)
 
-        return render(request,"registra_usuario.html",data)    
-##----------------------------------------------------
-# 
-def guardar_empleado(request):
-        data = {
-            "form":formulario_empleado
-        }
-        if request.method == "POST":
-            formulario = formulario_empleado(request.POST)
-            if formulario.is_valid():
-                formulario.save()
+        return render(request,"login.html",contexto)    
 
-
-
-        return render(request,"alta_empleado.html",data)  
 

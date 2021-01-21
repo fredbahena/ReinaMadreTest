@@ -1,0 +1,38 @@
+<html>
+    <head>
+        {% load static %}
+
+        <!-- Bootstrap -->
+        <link href="{% static 'app_empleados/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+        <!-- Fonts -->
+        
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet"> 
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+        
+
+        <!-- Styles -->
+        <link href="{% static 'app_empleados/css/gestion.css' %}" rel="stylesheet">
+        <title>
+            Inicio de Sesión de Empleados
+        </title>
+    </head>
+    <body>
+
+ 
+        {% if form.errors %}
+            <div class="alert alert-danger" role="alert">Error en el formulario</div>
+        {% endif %}
+
+        <h2>Log in</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="Submit" >Registrar</button>
+
+        </form> 
+
+          
+
+    </body>
+</html>
