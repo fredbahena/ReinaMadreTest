@@ -13,7 +13,7 @@ def saludo(request):
 # segunda vista
 def continuamos(request):
 
-    return HttpResponse("Seguimos desarrollando toda la noche test para ReinaMadre")
+    return HttpResponse("Seguimos desarrollando toda la noche y más test para ReinaMadre")
 
 ##----------------------------------------------------
 # primera vista + html
