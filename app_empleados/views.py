@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth import login as do_login
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import UserCreationForm
 
 from app_empleados.models import empresas, departamentos, empleados, view_empleados
 from app_empleados.forms import formulario_empleado, CustomUserForm
@@ -128,21 +129,24 @@ def guarda_empleado(request):
 ##----------------------------------------------------
 # Registro de usuarios para inicio de sesión
 def registra_usuario(request):
-        form = CustomUserForm()
+        form = UserCreationForm()
         contexto = {
             'form':form
         }
         
         if request.method == "POST":
-            form = CustomUserForm(request.POST)
+            form = UserCreationForm(data = request.POST)
             if form.is_valid():
                 form.save()
 
                 username = form.cleaned_data("username")
                 password = form.cleaned_data("password1")
+
                 user = authenticate(username, password)
-                login(request, user)
-                return redirect(to=home)
+
+                if user is not None:
+                    do_login(request, user)
+                    return render(request,"home.html")
 
         return render(request,"login.html",contexto)    
 
