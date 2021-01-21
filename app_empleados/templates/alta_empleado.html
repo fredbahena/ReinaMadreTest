@@ -14,12 +14,12 @@
         <!-- Styles -->
         <link href="{% static 'app_empleados/css/gestion.css' %}" rel="stylesheet">
         <title>
-            Búsqueda de Empleados
+            Edición de Empleados
         </title>
     </head>
     <body>
 
-              <!-- Navbar -->
+ <!-- Navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
       <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="home.html">Administración de Empleados</a>
@@ -32,16 +32,16 @@
             <a class="nav-link text-uppercase text-expanded" href="../">Home</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="#">Consultas</a>
+            <a class="nav-link text-uppercase text-expanded" href="../busqueda/">Consultas</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="#">Altas</a>
+            <a class="nav-link text-uppercase text-expanded" href="../guardaempleado/">Altas</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="#">Bajas</a>
+            <a class="nav-link text-uppercase text-expanded" href="../busqueda/">Bajas</a>
           </li>
           <li class="nav-item px-lg-4">
-            <a class="nav-link text-uppercase text-expanded" href="#">Cambios</a>
+            <a class="nav-link text-uppercase text-expanded" href="../busqueda/">Cambios</a>
           </li>
          
         </ul>
@@ -52,14 +52,11 @@
             <div class="alert alert-danger" role="alert">Error en el formulario</div>
         {% endif %}
 
-        <h2>Registro de Empleados</h2>
-        <form action="/registrausuario/" method="POST">
+        <h2>Edición de Empleados</h2>
+        <form method="POST">
             {% csrf_token %}
-
-            Nombre: <input type="text" name="nombre">
-            Nombre: <input type="text" name="nombre">
-
-            <input type="submit" class="btn btn-primary">
+            {{ form.as_p }}
+            <button type="Submit" >Guardar</button>
 
         </form> 
 

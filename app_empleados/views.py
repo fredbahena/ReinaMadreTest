@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.shortcuts import render
 from django.contrib.auth import login, authenticate
 
-from app_empleados.models import view_empleados, empresas, departamentos
+from app_empleados.models import empresas, departamentos, empleados, view_empleados
 from app_empleados.forms import formulario_empleado, CustomUserForm
 ##----------------------------------------------------
 # 
@@ -31,7 +31,7 @@ def muestra_empleados(request):
     return render(request, "busqueda_empleados.html",{"empresas":emp, "departamentos":deptos})
 
 ##----------------------------------------------------
-# 
+# Buscar empleados por empresa, departamento y like %nombre%
 def busqueda_comodin(request):
 
     get_empr = request.GET["empresa"]
@@ -72,8 +72,60 @@ def busqueda_comodin(request):
     return HttpResponse(mensaje)
 
 ##----------------------------------------------------
+# Elimina empleados por id
+def elimina_empleado(request,id_empleado):
+
+    obj_empleados = empleados.objects.get(id=id_empleado)
+    obj_empleados.delete()
+    
+    return render(request,"busqueda_empleados.html")
+
+##----------------------------------------------------
+# Edita empleados por id
+def edita_empleado(request,id_empleado):
+
+    obj_empleados = empleados.objects.get(id=id_empleado)
+
+    if request.method == 'GET':
+        form = formulario_empleado(instance=obj_empleados)
+        contexto = {
+            'form':form
+        }
+    else:
+        form= formulario_empleado(request.POST, instance = obj_empleados)
+        contexto = {
+            'form':form
+        }
+        if form.is_valid():
+            form.save()
+            return render(request,"busqueda_empleados.html")
+
+    return render(request,'alta_empleado.html',contexto)
+
+##----------------------------------------------------
 # 
-def guardar_usuario(request):
+def guarda_empleado(request):
+
+    if request.method == 'GET':
+        form = formulario_empleado()
+        contexto = {
+            'form':form
+        }
+    else:
+        form= formulario_empleado()
+        contexto = {
+            'form':form
+        }
+        if form.is_valid():
+            form.save()
+            return render(request,"alta_empleado.html")
+
+    return render(request,'alta_empleado.html',contexto)
+     
+    
+##----------------------------------------------------
+# 
+def registra_usuario(request):
         data = {
             "form":CustomUserForm
         }

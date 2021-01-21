@@ -15,6 +15,7 @@ class Migration(migrations.Migration):
             name='view_empleados',
             fields=[
                 ('id', models.BigIntegerField(primary_key=True, serialize=False)),
+                ('id_empleado', models.IntegerField()),
                 ('nombre', models.CharField(max_length=200)),
                 ('departamento', models.CharField(max_length=250)),
                 ('empresa', models.CharField(max_length=250)),

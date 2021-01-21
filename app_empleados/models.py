@@ -23,6 +23,7 @@ class departamentos(models.Model):
 
 class view_empleados(models.Model):
     id = models.BigIntegerField(primary_key=True)
+    id_empleado = models.IntegerField() 
     nombre = models.CharField(max_length=200)
     departamento = models.CharField(max_length=250)
     empresa = models.CharField(max_length=250)
