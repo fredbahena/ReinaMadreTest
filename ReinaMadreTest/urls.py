@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from ReinaMadreTest.views import saludo, continuamos, saludo_html, muestra_fecha, calcula_edad
-from app_empleados.views import home, muestra_empleados, busqueda_comodin, guarda_empleado, elimina_empleado, edita_empleado, registra_usuario
+from app_empleados.views import home, muestra_empleados, busqueda_comodin, guarda_empleado, elimina_empleado, edita_empleado, registra_usuario, login
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,4 +33,5 @@ urlpatterns = [
     path('editaempleado/<int:id_empleado>/', edita_empleado),
     path('guardaempleado/', guarda_empleado),
     path('registrausuario/', registra_usuario),
+    path('login/', login),
 ]

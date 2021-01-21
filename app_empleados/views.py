@@ -1,12 +1,14 @@
 from django.http import HttpResponse
 from django.http import HttpRequest
 from django.shortcuts import render
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login as do_login
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
 
 from app_empleados.models import empresas, departamentos, empleados, view_empleados
 from app_empleados.forms import formulario_empleado, CustomUserForm
 ##----------------------------------------------------
-# 
+# Valida si la variable es un entero
 def isNum(data):
     try:
         int(data)
@@ -15,14 +17,14 @@ def isNum(data):
         return False
 
 ##----------------------------------------------------
-# 
+# Página principal
 def home(request):
 
     return render(request, "home.html")
 
 
 ##----------------------------------------------------
-# 
+# Pantalla principal de búsqueda
 def muestra_empleados(request):
 
     emp = empresas.objects.all() 
@@ -103,7 +105,7 @@ def edita_empleado(request,id_empleado):
     return render(request,'alta_empleado.html',contexto)
 
 ##----------------------------------------------------
-# 
+# Guarda nuevos registros de empleados
 def guarda_empleado(request):
 
     if request.method == 'GET':
@@ -124,7 +126,7 @@ def guarda_empleado(request):
      
     
 ##----------------------------------------------------
-# 
+# Registro de usuarios para inicio de sesión
 def registra_usuario(request):
         form = CustomUserForm()
         contexto = {
@@ -144,4 +146,28 @@ def registra_usuario(request):
 
         return render(request,"login.html",contexto)    
 
+##----------------------------------------------------
+# Inicio de sesión
+def login(request):
+        form = AuthenticationForm()
+        contexto = {
+            'form':form
+        }
+        
+        if request.method == "POST":
+                        
+            form = AuthenticationForm(data = request.POST)
+
+            if form.is_valid():
+                
+                username = form.cleaned_data("username")
+                password = form.cleaned_data("password")
+
+                user = authenticate(username, password)
+
+                if user is not None:
+                    do_login(request, user)
+                    return render(request,"home.html")
+
+        return render(request,"login.html",contexto) 
 

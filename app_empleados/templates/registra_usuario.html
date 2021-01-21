@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html>
     <head>
         {% load static %}
@@ -15,12 +14,12 @@
         <!-- Styles -->
         <link href="{% static 'app_empleados/css/gestion.css' %}" rel="stylesheet">
         <title>
-            Edición de Empleados
+            Búsqueda de Empleados
         </title>
     </head>
     <body>
 
- <!-- Navbar -->
+              <!-- Navbar -->
  <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
     <div class="container">
       <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="home.html">Administración de Empleados</a>
@@ -53,11 +52,13 @@
             <div class="alert alert-danger" role="alert">Error en el formulario</div>
         {% endif %}
 
-        <h2>Edición de Empleados</h2>
-        <form method="POST">
+        <h2>Registro de Empleados</h2>
+        <form action="/registrausuario/" method="POST">
             {% csrf_token %}
-            {{ form.as_p }}
-            <button type="Submit" >Guardar</button>
+
+            {{ form }}
+
+            <input type="submit" class="btn btn-primary">
 
         </form> 
 
